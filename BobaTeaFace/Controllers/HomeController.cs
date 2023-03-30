@@ -1,4 +1,5 @@
 ﻿using BobaTeaFace.Models;
+using BobaTeaFace.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,7 +16,7 @@ namespace BobaTeaFace.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("", "Prototypes");
+            return RedirectToAction("Scenario", "Prototypes");
         }
 
         public IActionResult Privacy()

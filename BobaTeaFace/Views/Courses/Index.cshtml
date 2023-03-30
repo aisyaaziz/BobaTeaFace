@@ -1,7 +1,7 @@
-﻿@using BobaTeaFace.ViewModels
-@model BobaTeaFace.ViewModels.ScenarioViewModel
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
 @{
-
 }
 
 
@@ -17,7 +17,7 @@
 
                     <li class="breadcrumb-item active">
 
-                        Lesson 2
+                        Lesson 1
 
                     </li>
 
@@ -45,32 +45,18 @@
                 <div class="card card-body">
 
                     <div class="form-group">
-                        <label class="form-label">Lesson 2</label>
+                        <label class="form-label">Lesson 1</label>
 
                         <small class="form-text text-muted">Describe a scenario</small>
                     </div>
-@*
-                    <div class="form-group">
-                        <label class="form-label"
-                               for="select01">Vocabularies to learn</label>
-                        <textarea id="vocabs" class="form-control" style="width:500px;" placeholder="Enter vocabularies to use here (Separated by commas)"></textarea>
 
-                    </div>*@
-                    <div class="form-group">
-                        <label class="form-label">Gender</label>
-
-                        <select id="gender" class="form-control custom-select">
-                            <option value="10" selected>Male</option>
-                            <option value="20">Female</option>
-                        </select>
-                    </div>
                     <div class="form-group">
                         <label class="form-label">Vocabulary Level</label>
 
                         <select id="vocablevel" class="form-control custom-select">
-                        <option value="10" selected>Elementary school</option>
-                                <option value="20">Middle / High school</option>
-                                <option value="30">Professional</option>
+                            <option value="10" selected>Elementary school</option>
+                            <option value="20">Middle / High school</option>
+                            <option value="30">Professional</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -78,7 +64,7 @@
                                for="select01">Scenario</label>
                         <textarea class="form-control" id="scenario" style="width:500px;" placeholder="Enter your scenario here"></textarea>
                         <input type="hidden" value="3" id="quantity" />
-                        <input type="hidden" value="256x256" id="size" />
+                        <input type="hidden" value="256x256" id="sel" />
 
                     </div>
                     <div>
@@ -93,9 +79,6 @@
                     <div class="page-separator__text">Result</div>
                 </div>
 
-
-                <div class="card card-body" id="resultScenario">
-                </div>
 
                 <div class="card card-body" id="display">
                 </div>
@@ -125,14 +108,12 @@
                 input.size = $('#sel').val();
 
                 $.ajax({
-                    url: '/Prototypes/Scenario',
+                    url: '/Prototypes/GenerateImage',
                     method: 'post',
                     contentType: 'application/json',
                     data: JSON.stringify(input)
 
                 }).done(function (data) {
-
-                    $("#resultScenario").html(data.scenario);
 
                     $.each(data.data, function () {
                         $('#display').append(

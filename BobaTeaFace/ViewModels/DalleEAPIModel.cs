@@ -1,4 +1,4 @@
-﻿namespace BobaTeaFace.Models
+﻿namespace BobaTeaFace.ViewModels
 {
     // serves as our input model
     public class DalleEAPIModelInput

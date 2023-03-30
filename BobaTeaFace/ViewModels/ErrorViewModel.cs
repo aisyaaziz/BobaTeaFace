@@ -1,4 +1,4 @@
-namespace BobaTeaFace.Models
+namespace BobaTeaFace.ViewModels
 {
     public class ErrorViewModel
     {
