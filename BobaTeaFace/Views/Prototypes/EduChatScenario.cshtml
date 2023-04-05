@@ -12,7 +12,7 @@
 
                     <li class="breadcrumb-item active">
 
-                        Chat with a friend
+                        Chat with a friend (Learn Grammar!)
 
                     </li>
 
@@ -33,12 +33,12 @@
                         <div class="d-flex">
                             <a href=""
                                class="avatar avatar-sm avatar-online mr-12pt">
-                                <span class="avatar-title rounded-circle">SY</span>
+                                <span class="avatar-title rounded-circle">PD</span>
                             </a>
                             <div class="flex">
                                 <p class="d-flex align-items-center mb-2">
                                     <a href=""
-                                       class="text-body mr-2"><strong>Sunny Yang</strong></a>
+                                       class="text-body mr-2"><strong>Prajwal Deshkar</strong></a>
                                 </p>
                                 <p>Hi, what would you like to talk about?</p>
 
@@ -47,7 +47,7 @@
                     </div>
 
                 </div>
-                <input type="hidden" id="GUID" value=""/>
+                <input type="hidden" id="GUID" value="" />
                 <div class="d-flex mb-4">
                     <a href=""
                        class="avatar avatar-sm mr-12pt">
@@ -62,7 +62,7 @@
                                       name="comment"
                                       id="comment"
                                       rows="3"
-                                      placeholder="Type here to reply to Sunny ..."></textarea>
+                                      placeholder="Type here to reply to Prajwal ..."></textarea>
                         </div>
                         <button id="btn" class="btn btn-outline-secondary">Send</button>
                     </div>
@@ -76,9 +76,10 @@
 
 @section HtmlHead{
     <style type="text/css">
-   .avatar-title-2 {
-       background-color: darkblue!important;   }     
-   </style>
+        .avatar-title-2 {
+            background-color: darkblue !important;
+        }
+    </style>
 }
 
 <!-- // END Page Content -->
@@ -116,7 +117,7 @@
                 $('#divchat').append(myvar);
 
                 $.ajax({
-                    url: '/Prototypes/ChatScenarioPost',
+                    url: '/Prototypes/EduChatScenarioPost',
                     method: 'post',
                     contentType: 'application/json',
                     data: JSON.stringify(input)

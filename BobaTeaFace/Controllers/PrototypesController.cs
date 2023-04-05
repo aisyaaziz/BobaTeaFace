@@ -447,7 +447,7 @@ Scenario: A real life happy " + gender + " that can be seen in one image in the 
             IEnumerable<Chat> chats = _db.Chats.Where(x => x.SessionId == sessionId).ToList();
             if (chats.Count() == 0)
             {
-                _db.Chats.Add(new Chat { SessionId = sessionId, Role = "system", Content = "You are chatting with an autism kids who is trying to learn to be social. Keep your words very simple.", DateTimeCreated = DateTime.Now });
+                _db.Chats.Add(new Chat { SessionId = sessionId, Role = "system", Content = "Your name is Sunny Yang. You are chatting with an autism kids who is trying to learn to be social. Keep your words very simple.", DateTimeCreated = DateTime.Now });
             }
             _db.Chats.Add(new Chat { SessionId = sessionId, Role = "user", Content = model.message, DateTimeCreated = DateTime.Now });
             _db.SaveChanges();
@@ -503,5 +503,85 @@ Scenario: A real life happy " + gender + " that can be seen in one image in the 
 
             return Json(vm);
         }
+
+
+        public IActionResult EduChatScenario()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> EduChatScenarioPost([FromBody] ScenarioChatViewModel model)
+        {
+            string sessionId = model.guid;
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                sessionId = Guid.NewGuid().ToString();
+            }
+            IEnumerable<Chat> chats = _db.Chats.Where(x => x.SessionId == sessionId).ToList();
+            if (chats.Count() == 0)
+            {
+                _db.Chats.Add(new Chat { SessionId = sessionId, Role = "system", Content = "Your name is Prajwal Deshkar. You are a friend but throughout the conversation, play close attention to the user's grammar and spelling. Correct it when needed or else just continue the conversation.", DateTimeCreated = DateTime.Now });
+            }
+            _db.Chats.Add(new Chat { SessionId = sessionId, Role = "user", Content = model.message, DateTimeCreated = DateTime.Now });
+            _db.SaveChanges();
+
+            chats = _db.Chats.Where(x => x.SessionId == sessionId).OrderBy(x => x.DateTimeCreated).ToList();
+
+            var resp = new ChatGPTAPIModelResponseModel();
+            using (var client = new HttpClient())
+            {
+                // clear the default headers to avoid issues
+                client.DefaultRequestHeaders.Clear();
+
+                // add header authorization and use your API KEY
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", APIKEY);
+
+
+                ChatGPTAPIModelInput dalleInput = new ChatGPTAPIModelInput();
+                dalleInput.model = "gpt-3.5-turbo";
+                dalleInput.max_tokens = 2048;
+
+                dalleInput.messages = new List<ChatGPTAPIModelInputMessage>();
+                foreach (Chat chat in chats)
+                {
+                    ChatGPTAPIModelInputMessage msg = new ChatGPTAPIModelInputMessage();
+                    msg.role = chat.Role;
+                    msg.content = chat.Content;
+                    dalleInput.messages.Add(msg);
+                }
+
+                string jsonInput = JsonConvert.SerializeObject(dalleInput);
+                //  call the  api using post method and set the content type to application/json
+                var Message = await client.PostAsync("https://api.openai.com/v1/chat/completions",
+                    new StringContent(jsonInput, Encoding.UTF8, "application/json"));
+
+                // if result OK
+                // read the content and deserialize it using the Response Model
+                // then return the response object
+                if (Message.IsSuccessStatusCode)
+                {
+
+                    var content = await Message.Content.ReadAsStringAsync();
+                    resp = JsonConvert.DeserializeObject<ChatGPTAPIModelResponseModel>(content);
+                }
+            }
+
+
+            ScenarioChatViewModel vm = new ScenarioChatViewModel();
+            vm.message = resp.choices[0].message.content;
+            vm.guid = sessionId;
+
+            _db.Chats.Add(new Chat { SessionId = sessionId, Role = "assistant", Content = vm.message, DateTimeCreated = DateTime.Now });
+            _db.SaveChanges();
+
+            return Json(vm);
+        }
+
+
+        public IActionResult Test()
+        {
+            return View(_db.Chats.ToList());
+        }
+
     }
 }
