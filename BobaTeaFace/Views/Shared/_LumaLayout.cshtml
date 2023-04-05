@@ -47,6 +47,9 @@
           href="@Url.Content("~/public/")css/app.css"
           rel="stylesheet">
 
+
+
+    @await RenderSectionAsync("HtmlHead", required: false)
 </head>
 
 <body class="layout-compact layout-compact">

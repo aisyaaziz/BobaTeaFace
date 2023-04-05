@@ -18,6 +18,11 @@
         public int quantity { get; set; }
         public string size { get; set; }
     }
+    public class ScenarioChatViewModel
+    {
+        public string guid { get; set; }
+        public string message { get; set; }
+    }
     public class ScenarioResponseViewModel
     {
         public string scenario { get; set; }

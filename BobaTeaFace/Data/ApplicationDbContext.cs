@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using BobaTeaFace.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BobaTeaFace.Data
@@ -9,5 +10,8 @@ namespace BobaTeaFace.Data
             : base(options)
         {
         }
+
+
+        public DbSet<Chat> Chats { get; set; }
     }
 }
