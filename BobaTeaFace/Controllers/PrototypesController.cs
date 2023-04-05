@@ -520,7 +520,7 @@ Scenario: A real life happy " + gender + " that can be seen in one image in the 
             IEnumerable<Chat> chats = _db.Chats.Where(x => x.SessionId == sessionId).ToList();
             if (chats.Count() == 0)
             {
-                _db.Chats.Add(new Chat { SessionId = sessionId, Role = "system", Content = "Your name is Prajwal Deshkar. You are a friend but throughout the conversation, play close attention to the user's grammar and spelling. Correct it when needed or else just continue the conversation.", DateTimeCreated = DateTime.Now });
+                _db.Chats.Add(new Chat { SessionId = sessionId, Role = "system", Content = "You are a friend and the user wants to improve his English. It is important to correct his writing conventions, grammar and spelling if he was wrong.", DateTimeCreated = DateTime.Now });
             }
             _db.Chats.Add(new Chat { SessionId = sessionId, Role = "user", Content = model.message, DateTimeCreated = DateTime.Now });
             _db.SaveChanges();
