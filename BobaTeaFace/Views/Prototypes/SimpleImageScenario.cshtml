@@ -16,7 +16,9 @@
                     <li class="breadcrumb-item"><a href="@Url.Action("","")">Home</a></li>
 
                     <li class="breadcrumb-item active">
-                        Image Scenario (with ChatGPT)
+
+Simple Image Scenario
+
                     </li>
 
                 </ol>
@@ -137,7 +139,7 @@
                 fileData.append('size', $('#sel').val());
 
                 $.ajax({
-                    url: '/Prototypes/ImageScenarioPost',
+                    url: '/Prototypes/SimpleImageScenarioPost',
                     method: 'post',
                     contentType: false, // Not to set any content header
                     processData: false, // Not to process data

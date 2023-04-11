@@ -136,6 +136,7 @@ namespace BobaTeaFace.Controllers
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", APIKEY);
 
                 DalleEAPIModelInput dalleInput = new DalleEAPIModelInput();
+                dalleInput.model = "image-alpha-001";
                 dalleInput.n = 1;
                 dalleInput.size = "256x256";
                 if (resp.choices.Count > 0)
@@ -272,6 +273,7 @@ Scenario: A real life happy " + gender + " that can be seen in one image in the 
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", APIKEY);
 
                 DalleEAPIModelInput dalleInput = new DalleEAPIModelInput();
+                dalleInput.model = "image-alpha-001";
                 dalleInput.n = 1;
                 dalleInput.size = "256x256";
                 dalleInput.prompt = thescenario;
@@ -393,6 +395,7 @@ Scenario: A real life happy " + gender + " that can be seen in one image in the 
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", APIKEY);
 
                 DalleEAPIModelInput dalleInput = new DalleEAPIModelInput();
+                dalleInput.model = "image-alpha-001";
                 dalleInput.n = 1;
                 dalleInput.size = "256x256";
                 if (resp.choices.Count > 0)
@@ -406,6 +409,89 @@ Scenario: A real life happy " + gender + " that can be seen in one image in the 
                 dalleInput.prompt = dalleInput.prompt.Replace("\"","");
                 dalleInput.prompt = fileUrl + "***" + dalleInput.prompt;
             
+                actualScenario = dalleInput.prompt;
+                string jsonInput = JsonConvert.SerializeObject(dalleInput);
+                //  call the  api using post method and set the content type to application/json
+                var Message = await client.PostAsync("https://api.openai.com/v1/images/generations",
+                    new StringContent(jsonInput, Encoding.UTF8, "application/json"));
+
+                // if result OK
+                // read the content and deserialize it using the Response Model
+                // then return the response object
+                if (Message.IsSuccessStatusCode)
+                {
+
+                    var content = await Message.Content.ReadAsStringAsync();
+                    dallEResponse = JsonConvert.DeserializeObject<DalleEAPIModelResponseModel>(content);
+                }
+            }
+
+            ScenarioResponseViewModel vm = new ScenarioResponseViewModel();
+            vm.scenario = actualScenario;
+            if (dallEResponse != null)
+            {
+                vm.data = dallEResponse.data;
+            }
+            return Json(vm);
+        }
+
+        public IActionResult SimpleImageScenario()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SimpleImageScenarioPost()
+        {
+            string actualScenario = "";
+            string gender = "boy";
+            string scenario = "";
+            if (Request.Form.Where(x => x.Key.ToLower() == "gender").Count() > 0)
+            {
+                KeyValuePair<string, StringValues> formGender = Request.Form.Where(x => x.Key == "gender").FirstOrDefault();
+                if (formGender.Value == "20")
+                {
+                    gender = "girl";
+                }
+            }
+            if (Request.Form.Where(x => x.Key.ToLower() == "scenario").Count() > 0)
+            {
+                KeyValuePair<string, StringValues> formScenario = Request.Form.Where(x => x.Key == "scenario").FirstOrDefault();
+                scenario = formScenario.Value;
+            }
+            string fileUrl = "https://bobateaapp.theaisyaaziz.com/uploads/";
+            IFormFileCollection files = Request.Form.Files;
+            if (files.Count() > 0)
+            {
+                IFormFile file = files.FirstOrDefault();
+                string uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+                string filePath = Path.Combine(uploads, file.FileName);
+                fileUrl = fileUrl + file.FileName;
+                using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+            }
+
+
+            // create a response object
+            var dallEResponse = new DalleEAPIModelResponseModel();
+            using (var client = new HttpClient())
+            {
+                // clear the default headers to avoid issues
+                client.DefaultRequestHeaders.Clear();
+
+                // add header authorization and use your API KEY
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", APIKEY);
+
+                DalleEAPIModelInput dalleInput = new DalleEAPIModelInput();
+                dalleInput.model = "image-alpha-001";
+                dalleInput.n = 1;
+                dalleInput.size = "256x256";
+                dalleInput.prompt = "real image of a " + gender + " with the scenario: " + scenario;
+                dalleInput.prompt = dalleInput.prompt.Replace("\"", "");
+                dalleInput.prompt = fileUrl + "***" + dalleInput.prompt;
+
                 actualScenario = dalleInput.prompt;
                 string jsonInput = JsonConvert.SerializeObject(dalleInput);
                 //  call the  api using post method and set the content type to application/json
@@ -575,6 +661,18 @@ Scenario: A real life happy " + gender + " that can be seen in one image in the 
             _db.SaveChanges();
 
             return Json(vm);
+        }
+
+
+        public IActionResult PhotoToVideo()
+        {
+            return View();
+        }
+
+
+        public IActionResult VoiceSimulation()
+        {
+            return View();
         }
 
 

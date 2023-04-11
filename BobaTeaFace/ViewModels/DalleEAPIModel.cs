@@ -3,6 +3,7 @@
     // serves as our input model
     public class DalleEAPIModelInput
     {
+        public string model { get; set; }
         public string? prompt { get; set; }
         public short? n { get; set; }
         public string? size { get; set; }
