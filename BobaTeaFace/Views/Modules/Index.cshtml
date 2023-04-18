@@ -1,93 +1,157 @@
-﻿
-@model IEnumerable<Course>
+﻿@model IEnumerable<Course>
 @{
-    
+	
 }
 
+				<div class="page-section">
+					<div class="container page__container">
+						<div class="page-separator">
+							<div class="page-separator__text">Courses</div>
+						</div>
 
-                <div class="page-section">
-                    <div class="container page__container">
-@*
-                        <div class="d-flex flex-column flex-sm-row align-items-sm-center mb-24pt"
-                             style="white-space: nowrap;">
-                            <small class="flex text-muted text-headings text-uppercase mr-3 mb-2 mb-sm-0">Displaying 4 out of 10 courses</small>
-                            <div class="w-auto ml-sm-auto table d-flex align-items-center mb-2 mb-sm-0">
-                                <small class="text-muted text-headings text-uppercase mr-3 d-none d-sm-block">Sort by</small>
+						<div class="row card-group-row">
 
-                                <a href="#"
-                                   class="sort desc small text-headings text-uppercase">Newest</a>
+			@foreach(Course c in Model)
+			{
+				<div class="col-md-6 col-lg-4 col-xl-4 card-group-row__col">
 
-                                <a href="#"
-                                   class="sort small text-headings text-uppercase ml-2">Popularity</a>
+					<div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card">
 
-                            </div>
+						<a href="@Url.Action("Details", new {Id = c.Id})"
+						   class="card-img-top js-image"
+						   data-position=""
+						   data-height="140">
+							<img src="@c.ChildImageUrl"
+								 alt="course">
+							<span class="overlay__content">
+								<span class="overlay__action d-flex flex-column text-center">
+									<span class="card-title text-white">Go to Course</span>
+								</span>
+							</span>
+						</a>
 
-                            <a href="#"
-                               data-target="#library-drawer"
-                               data-toggle="sidebar"
-                               class="btn btn-sm btn-white ml-sm-16pt">
-                                <i class="material-icons icon--left">tune</i> Filters
-                            </a>
+						<div class="card-body flex">
+							<div class="d-flex">
+								<div class="flex">
+									<a class="card-title"
+									   href="student-course.html">@c.Title</a>
+									<small class="text-50 font-weight-bold mb-4pt">@c.Description</small>
+								</div>
+							</div>
 
-                        </div>*@
-
-                        <div class="page-separator">
-                            <div class="page-separator__text">Courses</div>
-                        </div>
-
-                        <div class="row card-group-row">
-
-            @foreach(Course c in Model)
-            {
-                <div class="col-md-6 col-lg-4 col-xl-4 card-group-row__col">
-
-                    <div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card">
-
-                        <a href="@Url.Action("Details", new {Id = c.Id})"
-                           class="card-img-top js-image"
-                           data-position=""
-                           data-height="140">
-                            <img src="@c.ChildImageUrl"
-                                 alt="course">
-                            <span class="overlay__content">
-                                <span class="overlay__action d-flex flex-column text-center">
-                                    <span class="card-title text-white">Go to Course</span>
-                                </span>
-                            </span>
-                        </a>
-
-                        <div class="card-body flex">
-                            <div class="d-flex">
-                                <div class="flex">
-                                    <a class="card-title"
-                                       href="student-course.html">@c.Title</a>
-                                    <small class="text-50 font-weight-bold mb-4pt">@c.Description</small>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="card-footer">
-                            <div class="row justify-content-between">
-                                <div class="col-auto d-flex align-items-center">
-                                    <a href="@Url.Action("Edit", new {Id = c.Id})" class="btn btn-block btn-primary">As Therapist</a>
-                                </div>
-                                <div class="col-auto d-flex align-items-center">
-                                    <a href="@Url.Action("Details", new {Id = c.Id})" class="btn btn-block btn-primary">As Child</a>
-                                </div>
+						</div>
+						<div class="card-footer">
+							<div class="row justify-content-between">
+								<div class="col-auto d-flex align-items-center">
+									<a href="@Url.Action("Edit", new {Id = c.Id})" class="btn btn-block btn-primary">As Therapist</a>
+								</div>
+								<div class="col-auto d-flex align-items-center">
+									<a href="@Url.Action("Details", new {Id = c.Id})" class="btn btn-block btn-primary">As Child</a>
+								</div>
 
 
-                            </div>
-                        </div>
-                    </div>
+							</div>
+						</div>
+					</div>
 
 
-                </div>
+				</div>
 
 
-            }
+			}
 
-                        </div>
+						</div>
+
+						<div class="page-section">
+
+						<div class="page-separator">
+							<div class="page-separator__text">Learning Materials</div>
+						</div>
+
+						<!-- <div class="page-heading">
+	  <h4>Learning Paths</h4>
+	  <a 
+		href="" 
+		class="text-underline ml-sm-auto">All my learning paths</a>
+	</div> -->
+
+						<div class="row card-group-row mb-lg-8pt">
+
+							<div class="col-sm-6 card-group-row__col">
+
+								<div class="card js-overlay card-sm overlay--primary-dodger-blue stack stack--1 card-group-row__card" >
+
+									<div class="card-body d-flex flex-column">
+										<div class="d-flex align-items-center">
+											<div class="flex">
+												<div class="d-flex align-items-center">
+													<div class="flex">
+														<div class="card-title">Practice chatting</div>
+														<p class="flex text-50 lh-1 mb-0"><small>Improve your communication skills</small></p>
+													</div>
+												</div>
+											</div>
+
+											<a href="@Url.Action("ChatScenario","Prototypes")" class="ml-4pt btn btn-sm btn-link text-secondary border-1 border-secondary">Chat with me</a>
+
+										</div>
+
+									</div>
+								</div>
+								</div>
+
+				<div class="col-sm-6 card-group-row__col">
+								
+								<div class="card js-overlay card-sm overlay--primary-dodger-blue stack stack--1 card-group-row__card" >
+
+									<div class="card-body d-flex flex-column">
+										<div class="d-flex align-items-center">
+											<div class="flex">
+												<div class="d-flex align-items-center">
+													<div class="flex">
+														<div class="card-title">Photo to Video</div>
+														<p class="flex text-50 lh-1 mb-0"><small>Learn different emotions</small></p>
+													</div>
+												</div>
+											</div>
+
+											<a href="@Url.Action("PhotoToVideo","Prototypes")" class="ml-4pt btn btn-sm btn-link text-secondary border-1 border-secondary">Go to module</a>
+
+										</div>
+
+									</div>
+								</div>
 
 
-                    </div>
-                </div>
+				</div>
+
+				<div class="col-sm-6 card-group-row__col">
+
+					<div class="card js-overlay card-sm overlay--primary-dodger-blue stack stack--1 card-group-row__card">
+
+						<div class="card-body d-flex flex-column">
+							<div class="d-flex align-items-center">
+								<div class="flex">
+									<div class="d-flex align-items-center">
+										<div class="flex">
+											<div class="card-title">Voice Simulation</div>
+											<p class="flex text-50 lh-1 mb-0"><small>Talk to a familiar voice</small></p>
+										</div>
+									</div>
+								</div>
+
+								<a href="@Url.Action("VoiceSimulation","Prototypes")" class="ml-4pt btn btn-sm btn-link text-secondary border-1 border-secondary">Go to module</a>
+
+							</div>
+
+						</div>
+					</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+					</div>
+				</div>

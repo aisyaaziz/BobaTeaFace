@@ -16,7 +16,7 @@ namespace BobaTeaFace.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("Scenario", "Prototypes");
+            return RedirectToAction("Index", "Modules");
         }
 
         public IActionResult Privacy()
