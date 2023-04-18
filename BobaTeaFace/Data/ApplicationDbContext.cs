@@ -13,5 +13,6 @@ namespace BobaTeaFace.Data
 
 
         public DbSet<Chat> Chats { get; set; }
+        public DbSet<Course> Courses { get; set; }
     }
 }

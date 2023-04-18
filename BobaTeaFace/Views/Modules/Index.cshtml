@@ -1,0 +1,93 @@
+﻿
+@model IEnumerable<Course>
+@{
+    
+}
+
+
+                <div class="page-section">
+                    <div class="container page__container">
+@*
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center mb-24pt"
+                             style="white-space: nowrap;">
+                            <small class="flex text-muted text-headings text-uppercase mr-3 mb-2 mb-sm-0">Displaying 4 out of 10 courses</small>
+                            <div class="w-auto ml-sm-auto table d-flex align-items-center mb-2 mb-sm-0">
+                                <small class="text-muted text-headings text-uppercase mr-3 d-none d-sm-block">Sort by</small>
+
+                                <a href="#"
+                                   class="sort desc small text-headings text-uppercase">Newest</a>
+
+                                <a href="#"
+                                   class="sort small text-headings text-uppercase ml-2">Popularity</a>
+
+                            </div>
+
+                            <a href="#"
+                               data-target="#library-drawer"
+                               data-toggle="sidebar"
+                               class="btn btn-sm btn-white ml-sm-16pt">
+                                <i class="material-icons icon--left">tune</i> Filters
+                            </a>
+
+                        </div>*@
+
+                        <div class="page-separator">
+                            <div class="page-separator__text">Courses</div>
+                        </div>
+
+                        <div class="row card-group-row">
+
+            @foreach(Course c in Model)
+            {
+                <div class="col-md-6 col-lg-4 col-xl-4 card-group-row__col">
+
+                    <div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card">
+
+                        <a href="@Url.Action("Details", new {Id = c.Id})"
+                           class="card-img-top js-image"
+                           data-position=""
+                           data-height="140">
+                            <img src="@c.ChildImageUrl"
+                                 alt="course">
+                            <span class="overlay__content">
+                                <span class="overlay__action d-flex flex-column text-center">
+                                    <span class="card-title text-white">Go to Course</span>
+                                </span>
+                            </span>
+                        </a>
+
+                        <div class="card-body flex">
+                            <div class="d-flex">
+                                <div class="flex">
+                                    <a class="card-title"
+                                       href="student-course.html">@c.Title</a>
+                                    <small class="text-50 font-weight-bold mb-4pt">@c.Description</small>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <div class="row justify-content-between">
+                                <div class="col-auto d-flex align-items-center">
+                                    <a href="@Url.Action("Edit", new {Id = c.Id})" class="btn btn-block btn-primary">As Therapist</a>
+                                </div>
+                                <div class="col-auto d-flex align-items-center">
+                                    <a href="@Url.Action("Details", new {Id = c.Id})" class="btn btn-block btn-primary">As Child</a>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            }
+
+                        </div>
+
+
+                    </div>
+                </div>

@@ -7,6 +7,7 @@
         public string? prompt { get; set; }
         public short? n { get; set; }
         public string? size { get; set; }
+        public string response_format { get; set; } = "url";
     }
 
     // model for the image url

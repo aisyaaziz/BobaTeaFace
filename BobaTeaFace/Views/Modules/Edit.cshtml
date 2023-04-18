@@ -1,0 +1,327 @@
+﻿@model Course
+@{
+
+}
+<form method="post" action="@Url.Action("Edit")">
+    <div class="pt-32pt">
+        <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
+            <div class="flex d-flex flex-column flex-sm-row align-items-center">
+
+                <div class="mb-24pt mb-sm-0 mr-sm-24pt">
+                    <h2 class="mb-0">Modules</h2>
+
+                    <ol class="breadcrumb p-0 m-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("","")">Home</a></li>
+
+                        <li class="breadcrumb-item active">
+
+                            Modify
+
+                        </li>
+
+                    </ol>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- BEFORE Page Content -->
+    <!-- // END BEFORE Page Content -->
+    <!-- Page Content -->
+
+    <div class="page-section border-bottom-2">
+        <div class="container page__container">
+
+            <div class="row align-items-start">
+                <div class="col-md-12">
+
+                    <div class="page-separator">
+                        <div class="page-separator__text">Build a module</div>
+                    </div>
+                    <div class="card card-body">
+                        <div class="form-group">
+                            <label class="form-label">Select child's gender</label>
+                            @Html.HiddenFor(x=>x.Id)
+                            <select id="gender" class="form-control custom-select" name="Gender">
+                                <option value="10">Male</option>
+                                <option value="20">Female</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Child's Photo</label>
+
+                            <div class="card card-body" id="displayChildImage">
+                                <div class="col-md-3 p-10" style="padding-top:10px">
+                                    <img class="p-10" src="@Model.ChildImageUrl" />
+                                </div>
+                            </div>
+                            <input type="file" id="childFileUpload" name="file" class="form-control" />
+                            <input type="hidden" id="ChildImageUrl" name="ChildImageUrl" value="@Model.ChildImageUrl" />
+                        </div>
+
+                    </div>
+                    <div class="card card-body">
+
+                        <div class="form-group">
+                            <label class="form-label"
+                                   for="select01">Module Title</label>
+                            <input type="text" class="form-control" id="scenarioTitle" name="Title" placeholder="Name the module" value="@Model.Title"/>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"
+                                   for="select01">Scenario Description</label>
+                            <textarea class="form-control" id="scenarioDescription" placeholder="Enter your scenario here" name="Description">@Model.Description</textarea>
+                            <input type="hidden" value="3" id="quantity" />
+                            <input type="hidden" value="256x256" id="size" />
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Scenario-based Photo</label>
+
+                            <div class="card card-body" id="displayDalleImage">
+                                @if (!(string.IsNullOrEmpty(Model.ExternalImageUrl)))
+                                {
+                                    <div class="col-md-3 p-10" style="padding-top:10px">
+                            <img class="p-10" src ="@Model.ExternalImageUrl"/>
+                            <input type="hidden" name="ExternalImageUrl" value="@Model.ExternalImageUrl">
+                                    </div>
+                                } else
+                                {
+                                    <center><em>Pending</em></center>
+                                }
+                            </div>
+                            <div>
+                                <button class="btn btn-outline-secondary" id="btnAutoDalle">
+                                    Auto-Generate Image based on Scenario
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="page-separator">
+                        <div class="page-separator__text">Q&A</div>
+                    </div>
+
+                    <div class="card card-body" id="resultScenario" style="display:none;">
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-secondary btn-block" id="btnQnA">
+                            Auto-Generate Q&A
+                        </button>
+                    </div>
+                    <br />
+                    <div class="card card-body">
+
+                        <div class="form-group">
+                            <label class="form-label" for="WhoQ">Who?</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Question: <input type="text" class="form-control" name="WhoQ" placeholder="Ask a who question" value="@Model.WhoQ" />
+                                </div>
+                                <div class="col-md-6">
+                                    Answer: <input type="text" class="form-control" name="WhoA" placeholder="Answer the who question" value="@Model.WhoA" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card card-body">
+
+                        <div class="form-group">
+                            <label class="form-label" for="WhatQ">What?</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Question: <input type="text" class="form-control" name="WhatQ" placeholder="Ask a What question" value="@Model.WhatQ" />
+                                </div>
+                                <div class="col-md-6">
+                                    Answer: <input type="text" class="form-control" name="WhatA" placeholder="Answer the What question" value="@Model.WhatA" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card card-body">
+
+                        <div class="form-group">
+                            <label class="form-label" for="WhenQ">When?</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Question: <input type="text" class="form-control" name="WhenQ" placeholder="Ask a When question" value="@Model.WhenQ" />
+                                </div>
+                                <div class="col-md-6">
+                                    Answer: <input type="text" class="form-control" name="WhenA" placeholder="Answer the When question" value="@Model.WhenA" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card card-body">
+
+                        <div class="form-group">
+                            <label class="form-label" for="WhyQ">Why?</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Question: <input type="text" class="form-control" name="WhyQ" placeholder="Ask a Why question" value="@Model.WhyQ" />
+                                </div>
+                                <div class="col-md-6">
+                                    Answer: <input type="text" class="form-control" name="WhyA" placeholder="Answer the Why question" value="@Model.WhyA" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card card-body">
+
+                        <div class="form-group">
+                            <label class="form-label" for="WhereQ">Where?</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Question: <input type="text" class="form-control" name="WhereQ" placeholder="Ask a Where question" value="@Model.WhereQ" />
+                                </div>
+                                <div class="col-md-6">
+                                    Answer: <input type="text" class="form-control" name="WhereA" placeholder="Answer the Where question" value="@Model.WhereA" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card card-body">
+
+                        <div class="form-group">
+                            <label class="form-label" for="HowQ">How?</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Question: <input type="text" class="form-control" name="HowQ" placeholder="Ask a How question" value="@Model.HowQ" />
+                                </div>
+                                <div class="col-md-6">
+                                    Answer: <input type="text" class="form-control" name="HowA" placeholder="Answer the How question" value="@Model.HowA" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div>
+                        <button class="btn btn-outline-primary btn-block" type="submit">
+                            Save Module
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- // END Page Content -->
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(() => {
+
+            $('#btnAutoDalle').click(function () {
+                $('#btnAutoDalle').prop('disabled', true);
+
+                var fileUpload = $("#childFileUpload").get(0);
+                var files = fileUpload.files;
+
+                // Create FormData object
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+                fileData.append('n', 1);
+                fileData.append('size', "256x256");
+                fileData.append('title', $('#scenarioTitle').val());
+                fileData.append('scenario', $('#scenarioDescription').val());
+                fileData.append('gender', $('#gender').find(":selected").val());
+                fileData.append('vocablevel', $('#vocablevel').find(":selected").val());
+
+                $('#displayDalleImage').html(
+                    '<em>Please be patient.. Dall-E is generating the photo.</em>');
+                $.ajax({
+                    url: '@Url.Action("GenerateScenarioBasedImage")',
+                    method: 'post',
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData
+
+                }).done(function (data) {
+
+                    //$("#resultScenario").html(data.scenario);
+                    $("#ChildImageUrl").val(data.childImageUrl);
+                    $.each(data.data, function () {
+                        $('#displayDalleImage').html(
+                            '<div class="col-md-3 p-10" style="padding-top:10px">' +
+                            '<img class="p-10" src = "' + this.url + '"/>' +
+                            '<input type="hidden" name="ExternalImageUrl" value=' + this.url + '"/>' +
+                            '</div>');
+                    });
+
+                    $('#btnAutoDalle').prop('disabled', false);
+                });
+            });
+
+
+            $('#btnQnA').click(function () {
+
+                $('#btnQnA').prop('disabled', true);
+                $("#btnQnA").html("Please hold..");
+
+
+                var input = {};
+                input.title = $('#scenarioTitle').val();
+                input.scenario = $('#scenarioDescription').val();
+                input.gender = $('#gender').find(":selected").val();
+
+
+                $.ajax({
+                    url: '@Url.Action("GenerateQnA")',
+                    method: 'post',
+                    contentType: 'application/json',
+                    data: JSON.stringify(input)
+
+                }).done(function (data) {
+                    $("input[name='WhoQ']").val(data.whoQ);
+                    $("input[name='WhatQ']").val(data.whatQ);
+                    $("input[name='WhereQ']").val(data.whereQ);
+                    $("input[name='WhyQ']").val(data.whyQ);
+                    $("input[name='WhenQ']").val(data.whenQ);
+                    $("input[name='HowQ']").val(data.howQ);
+
+                    $("input[name='WhoA']").val(data.whoA);
+                    $("input[name='WhatA']").val(data.whatA);
+                    $("input[name='WhereA']").val(data.whereA);
+                    $("input[name='WhyA']").val(data.whyA);
+                    $("input[name='WhenA']").val(data.whenA);
+                    $("input[name='HowA']").val(data.howA);
+
+                    $("#btnQnA").html("Auto-Generate Q&A");
+                    $('#btnQnA').prop('disabled', false);
+                });
+            });
+        });
+    </script>
+
+}

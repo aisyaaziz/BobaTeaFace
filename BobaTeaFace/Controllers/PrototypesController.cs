@@ -104,7 +104,7 @@ namespace BobaTeaFace.Controllers
 
                 ChatGPTAPIModelInputMessage msg = new ChatGPTAPIModelInputMessage();
                 msg.role = "user";
-                msg.content = "Generate a less than 400-character short prompt to give to DALL_E to generate a real life image to show to an autistic child (" + gender + ") a scenario about " + model.Scenario + " with minimal distractions.";
+                msg.content = "Generate a less than 400-character short prompt to give to DALL_E to generate a real life image to show to an autistic child a scenario of a " + gender + " doing: " + model.Scenario + " with minimal distractions.";
                 dalleInput.messages = new List<ChatGPTAPIModelInputMessage>();
                 dalleInput.messages.Add(msg);
                 
@@ -363,7 +363,7 @@ Scenario: A real life happy " + gender + " that can be seen in one image in the 
 
                 ChatGPTAPIModelInputMessage msg = new ChatGPTAPIModelInputMessage();
                 msg.role = "user";
-                msg.content = "Generate a less than 400-character short prompt to give to DALL_E to generate a real life image to show to an autistic child (" + gender + ") a scenario about " + scenario + " with minimal distractions.";
+                msg.content = "Generate a less than 400-character short prompt to give to DALL_E to generate a real life image to show to an autistic child a scenario of a " + gender + " doing: " + scenario + " with minimal distractions.";
                 dalleInput.messages = new List<ChatGPTAPIModelInputMessage>();
                 dalleInput.messages.Add(msg);
 
