@@ -1,4 +1,5 @@
 ﻿using BobaTeaFace.Data;
+using BobaTeaFace.Data.Migrations;
 using BobaTeaFace.Models;
 using BobaTeaFace.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -62,6 +63,21 @@ namespace BobaTeaFace.Controllers
             oldCourse.Title = course.Title;
             oldCourse.Description = course.Description; 
             oldCourse.ChildImageUrl = course.ChildImageUrl;
+
+            string fileUrl = "https://bobateaapp.theaisyaaziz.com/uploads/";
+            IFormFileCollection files = Request.Form.Files;
+            if (files.Count() > 0)
+            {
+                IFormFile file = files.FirstOrDefault();
+                string uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+                string filePath = Path.Combine(uploads, file.FileName);
+                fileUrl = fileUrl + file.FileName;
+                using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+            }
+
             oldCourse.ExternalImageUrl = course.ExternalImageUrl;
             oldCourse.Gender = course.Gender;
 
@@ -93,6 +109,13 @@ namespace BobaTeaFace.Controllers
         [HttpPost]
         public async Task<IActionResult> GenerateScenarioBasedImage()
         {
+            string childImageUrl = "";
+            if (Request.Form.Where(x => x.Key.ToLower() == "childImageUrl").Count() > 0)
+            {
+                KeyValuePair<string, StringValues> formScenario = Request.Form.Where(x => x.Key == "childImageUrl").FirstOrDefault();
+                childImageUrl = formScenario.Value;
+            } 
+
             string gender = "boy";
             if (Request.Form.Where(x => x.Key.ToLower() == "gender").Count() > 0)
             {
@@ -126,9 +149,21 @@ namespace BobaTeaFace.Controllers
                 string uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
                 string filePath = Path.Combine(uploads, file.FileName);
                 fileUrl = fileUrl + file.FileName;
-                using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                try
                 {
-                    await file.CopyToAsync(fileStream);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+                } catch (Exception ex)
+                {
+
+                }
+            } else
+            {
+                if (!(string.IsNullOrEmpty(childImageUrl)))
+                {
+                    fileUrl = childImageUrl;
                 }
             }
 

@@ -2,7 +2,7 @@
 @{
 
 }
-<form method="post" action="@Url.Action("Edit")">
+<form method="post" action="@Url.Action("Edit")" enctype="multipart/form-data">
     <div class="pt-32pt">
         <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
             <div class="flex d-flex flex-column flex-sm-row align-items-center">
@@ -252,6 +252,7 @@
                     fileData.append(files[i].name, files[i]);
                 }
                 fileData.append('n', 1);
+                fileData.append('childImageUrl', "@Model.ChildImageUrl");
                 fileData.append('size', "256x256");
                 fileData.append('title', $('#scenarioTitle').val());
                 fileData.append('scenario', $('#scenarioDescription').val());
@@ -271,13 +272,11 @@
 
                     //$("#resultScenario").html(data.scenario);
                     $("#ChildImageUrl").val(data.childImageUrl);
-                    $.each(data.data, function () {
-                        $('#displayDalleImage').html(
-                            '<div class="col-md-3 p-10" style="padding-top:10px">' +
-                            '<img class="p-10" src = "' + this.url + '"/>' +
-                            '<input type="hidden" name="ExternalImageUrl" value="' + this.url + '"/>' +
-                            '</div>');
-                    });
+                    $('#displayDalleImage').html(
+                        '<div class="col-md-3 p-10" style="padding-top:10px">' +
+                        '<img class="p-10" src = "' + data.externalImageUrl + '"/>' +
+                        '<input type="hidden" name="ExternalImageUrl" value="' + data.externalImageUrl + '"/>' +
+                        '</div>');
 
                     $('#btnAutoDalle').prop('disabled', false);
                 });
