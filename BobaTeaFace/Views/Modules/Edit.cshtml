@@ -45,8 +45,15 @@
                             <label class="form-label">Select child's gender</label>
                             @Html.HiddenFor(x=>x.Id)
                             <select id="gender" class="form-control custom-select" name="Gender">
-                                <option value="10">Male</option>
-                                <option value="20">Female</option>
+                                @if (Model.Gender == Gender.Male)
+                                {
+                                    <option value="10" selected>Male</option>
+                                    <option value="20">Female</option>
+                                } else
+                                {
+                                    <option value="10">Male</option>
+                                    <option value="20" selected>Female</option>
+                                }
                             </select>
                         </div>
 
