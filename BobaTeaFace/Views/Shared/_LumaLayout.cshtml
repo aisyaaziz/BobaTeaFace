@@ -8,6 +8,8 @@
           content="IE=edge">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/x-icon" href="@Url.Content("~/icon/icon.ico")">
+         
     <title>@ViewData["Title"]</title>
 
     <!-- Prevent the demo from appearing in search engines -->
@@ -50,6 +52,17 @@
 
 
     @await RenderSectionAsync("HtmlHead", required: false)
+
+    <style type="text/css">
+    #stickyboy{
+            position: fixed;
+            bottom: 20px;
+            right: 0px;
+            z-index: 1;
+            padding: 0px;
+            margin: 0px;
+    }    
+    </style>
 </head>
 
 <body class="layout-compact layout-compact">
@@ -102,7 +115,7 @@
                     <span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
 
                         <span class="avatar-title rounded bg-primary">
-                            <img src="@Url.Content("~/public/")images/illustration/student/128/white.svg"
+                            <img src="@Url.Content("~/icon/icon.png")"
                                  alt="logo"
                                  class="img-fluid" />
                         </span>
@@ -329,16 +342,16 @@
             <div class="bg-white border-top-2 mt-auto">
                 <div class="container page__container page-section d-flex flex-column">
                     <p class="text-70 brand mb-24pt">
-                        BobaTeaApp
+                        <img src="@Url.Content("~/icon/logo_whitebg.png")" height="100"/> BobaTeaApp
                     </p>
                     <p class="measure-lead-max text-50 small mr-8pt">BobaTeaApp is an AI project built for AI for Product Managers course in Carnegie Mellon University.</p>
-                    <p class="mb-8pt d-flex">
+                    @*<p class="mb-8pt d-flex">
                         <a href=""
                            class="text-70 text-underline mr-8pt small">Terms</a>
                         <a href=""
                            class="text-70 text-underline small">Privacy policy</a>
-                    </p>
-                    <p class="text-50 small mt-n1 mb-0">Copyright 2019 &copy; All rights reserved.</p>
+                    </p>*@
+                    <p class="text-50 small mt-n1 mb-0">Copyright 2023 &copy; All rights reserved.</p>
                 </div>
             </div>
 
@@ -360,10 +373,10 @@
                     <a href="@Url.Action("","")"
                        class="sidebar-brand p-0 navbar-height d-flex justify-content-center">
 
-                        <span class="avatar avatar-sm ">
+                        <span class="">
 
-                            <span class="avatar-title rounded bg-primary">
-                                <img src="@Url.Content("~/public/")images/illustration/student/128/white.svg"
+                            <span class="avatar-title rounded">
+                                <img src="@Url.Content("~/icon/logo_blackbg.png")"
                                      class="img-fluid"
                                      alt="logo" />
                             </span>
@@ -492,6 +505,9 @@
 
     </div>
 
+    <img src="@Url.Content("~/images/activityart-04-04.png")" alt="Hello" height="150" id="stickyboy">
+
+
     <!-- // END Drawer Layout -->
     <!-- jQuery -->
     <script src="@Url.Content("~/public/")vendor/jquery.min.js"></script>
@@ -533,6 +549,28 @@
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script type="text/javascript">
+        $(function() {
+            var iconarray = [
+                '@Url.Content("~/images/activityart-04-01.png")',
+                '@Url.Content("~/images/activityart-04-04.png")',
+                '@Url.Content("~/images/activityart-04-08.png")',
+                '@Url.Content("~/images/behaviourart-02-02.png")',
+                '@Url.Content("~/images/behaviourart-02-05.png")',
+                '@Url.Content("~/images/behaviourart-02-08.png")'
+            ];
+                var randomNumber = Math.floor(Math.random() * iconarray.length);
+                document.getElementById("stickyboy").setAttribute("src", iconarray[randomNumber]);
+
+            setTimeout(function () {
+                var randomNumber = Math.floor(Math.random() * iconarray.length);
+                document.getElementById("stickyboy").setAttribute("src", iconarray[randomNumber]);
+            }, 5000);
+
+        });
+
+    </script>
 </body>
 
 </html>
