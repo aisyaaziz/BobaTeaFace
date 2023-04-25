@@ -10,7 +10,7 @@
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" type="image/x-icon" href="@Url.Content("~/icon/icon.ico")">
          
-    <title>@ViewData["Title"]</title>
+    <title>BobaTeaApp - Learn with me</title>
 
     <!-- Prevent the demo from appearing in search engines -->
     <meta name="robots"
@@ -560,8 +560,8 @@
                 '@Url.Content("~/images/behaviourart-02-05.png")',
                 '@Url.Content("~/images/behaviourart-02-08.png")'
             ];
-                var randomNumber = Math.floor(Math.random() * iconarray.length);
-                document.getElementById("stickyboy").setAttribute("src", iconarray[randomNumber]);
+            var randomNumber = Math.floor(Math.random() * iconarray.length);
+            document.getElementById("stickyboy").setAttribute("src", iconarray[randomNumber]);
 
             setTimeout(function () {
                 var randomNumber = Math.floor(Math.random() * iconarray.length);
