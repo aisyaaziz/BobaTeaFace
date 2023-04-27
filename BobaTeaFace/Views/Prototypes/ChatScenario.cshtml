@@ -25,8 +25,7 @@
 </div>
 <div class="container page__container">
     <div class="page-section">
-
-        <div class="row">
+       @* <div class="row">
             <div class="col-md-12">
                 <div id="divchat">
                     <div class="card card-body">
@@ -69,6 +68,54 @@
                 </div>
 
             </div>
+        </div>*@
+
+
+
+        <div class="mdk-drawer-layout__content ps" data-perfect-scrollbar="" style="transform: translate3d(0px, 0px, 0px);">
+            <div class="app-messages__container d-flex flex-column h-100 pb-4">
+                <div class="flex pt-4 ps ps--active-y" style="position: relative;" data-perfect-scrollbar="">
+                    <div class="container page__container page__container">
+                        <ul class="d-flex flex-column list-unstyled" id="divchat">
+                            <li class="message d-inline-flex">
+                                <div class="message__aside">
+                                    <a href="#" class="avatar avatar-sm">
+                                        <img src="@Url.Content("~/images/sunny.png")" alt="people" class="avatar-img rounded-circle">
+                                    </a>
+                                </div>
+                                <div class="message__body card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex mr-3">
+                                                <a href="#" class="text-body"><strong>Sunny</strong></a>
+                                            </div>
+                                        </div>
+                                        <span class="text-70">
+                                            Hi, what would you like to talk about?
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px; height: 279px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 125px;"></div></div>
+                </div>
+                <div class="container page__container page__container">
+                    <div id="message-reply">
+                        <div class="input-group input-group-merge">
+                            <input type="text" class="form-control form-control-appended" autofocus="" required="" name="comment" id="comment" placeholder="Type message" >
+                            <div class="input-group-append">
+                                <div class="input-group-text pr-2">
+                                    @*<button id="btn" class="btn btn-outline-secondary">Send</button>*@
+                                    <button class="btn btn-flush" id="btn" type="button"><i class="material-icons">arrow_right</i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>
         </div>
 
     </div>
@@ -87,67 +134,119 @@
 
     <script type="text/javascript">
         $(document).ready(() => {
-
+            $('#comment').keypress(function (e) {
+                if (e.which == 13) {
+                    generateChat();
+                    return false;
+                }
+            });
             $('#btn').click(function () {
-
-                var chat = $('#comment').val();
-
-                var input = {};
-                input.message = chat;
-                input.guid = $("#GUID").val();
-
-                var myvar = '<div class="card card-body">' +
-                    '                        <div class="d-flex">' +
-                    '                            <a href=""' +
-                    '                               class="avatar avatar-sm avatar-online mr-12pt">' +
-                    '                                <span class="avatar-title avatar-title-2 rounded-circle">ME</span>' +
-                    '                            </a>' +
-                    '                            <div class="flex">' +
-                    '                                <p class="d-flex align-items-center mb-2">' +
-                    '                                    <a href=""' +
-                    '                                       class="text-body mr-2"><strong>You</strong></a>' +
-                    '                                </p>' +
-                    '                                <p>' + chat + '</p>' +
-                    '' +
-                    '                            </div>' +
-                    '                        </div>' +
-                    '                    </div>';
-
-                $('#divchat').append(myvar);
-
-                $.ajax({
-                    url: '/Prototypes/ChatScenarioPost',
-                    method: 'post',
-                    contentType: 'application/json',
-                    data: JSON.stringify(input)
-
-                }).done(function (data) {
-
-                    var myvar = '<div class="card card-body">' +
-                        '                        <div class="d-flex">' +
-                        '                            <a href=""' +
-                        '                               class="avatar avatar-sm avatar-online mr-12pt">' +
-                        '                                <span class="avatar-title rounded-circle">SY</span>' +
-                        '                            </a>' +
-                        '                            <div class="flex">' +
-                        '                                <p class="d-flex align-items-center mb-2">' +
-                        '                                    <a href=""' +
-                        '                                       class="text-body mr-2"><strong>Sunny Yang</strong></a>' +
-                        '                                </p>' +
-                        '                                <p>' + data.message + '</p>' +
-                        '' +
-                        '                            </div>' +
-                        '                        </div>' +
-                        '                    </div>';
-
-
-                    $('#divchat').append(myvar);
-                    $("#GUID").val(data.guid);
-
-                    $('#comment').val('');
-                });
+                generateChat();
             });
         });
+
+        function generateChat() {
+
+            var chat = $('#comment').val();
+
+            var input = {};
+            input.message = chat;
+            input.guid = $("#GUID").val();
+
+            var message = $('<li>').addClass('message d-inline-flex')
+                .append($('<div>').addClass('message__aside')
+                    .append($('<a>').attr('href', '#').addClass('avatar avatar-sm')
+                        .append($('<img>').attr('src', '@Url.Content("~/images/me.png")').attr('alt', 'people').addClass('avatar-img rounded-circle'))))
+                .append($('<div>').addClass('message__body card')
+                    .append($('<div>').addClass('card-body')
+                        .append($('<div>').addClass('d-flex align-items-center')
+                            .append($('<div>').addClass('flex mr-3')
+                                .append($('<a>').attr('href', '#').addClass('text-body')
+                                    .append($('<strong>').text('Me')))))
+                        .append($('<span>').addClass('text-70').text(chat))));
+            //var myvar = '<div class="card card-body">' +
+            //    '                        <div class="d-flex">' +
+            //    '                            <a href=""' +
+            //    '                               class="avatar avatar-sm avatar-online mr-12pt">' +
+            //    '                                <span class="avatar-title avatar-title-2 rounded-circle">ME</span>' +
+            //    '                            </a>' +
+            //    '                            <div class="flex">' +
+            //    '                                <p class="d-flex align-items-center mb-2">' +
+            //    '                                    <a href=""' +
+            //    '                                       class="text-body mr-2"><strong>You</strong></a>' +
+            //    '                                </p>' +
+            //    '                                <p>' + chat + '</p>' +
+            //    '' +
+            //    '                            </div>' +
+            //    '                        </div>' +
+            //    '                    </div>';
+
+            $('#divchat').append(message);
+
+            $.ajax({
+                url: '/Prototypes/ChatScenarioPost',
+                method: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(input)
+
+            }).done(function (data) {
+
+                var theresponse = $('<li>').addClass('message d-inline-flex')
+                    .append($('<div>').addClass('message__aside')
+                        .append($('<a>').attr('href', '#').addClass('avatar avatar-sm')
+                            .append($('<img>').attr('src', '@Url.Content("~/images/sunny.png")').attr('alt', 'people').addClass('avatar-img rounded-circle'))))
+                    .append($('<div>').addClass('message__body card')
+                        .append($('<div>').addClass('card-body')
+                            .append($('<div>').addClass('d-flex align-items-center')
+                                .append($('<div>').addClass('flex mr-3')
+                                    .append($('<a>').attr('href', '#').addClass('text-body')
+                                        .append($('<strong>').text('Sunny')))))
+                            .append($('<span>').addClass('text-70').text(data.message))));
+                //var myvar = '<div class="card card-body">' +
+                //    '                        <div class="d-flex">' +
+                //    '                            <a href=""' +
+                //    '                               class="avatar avatar-sm avatar-online mr-12pt">' +
+                //    '                                <span class="avatar-title avatar-title-2 rounded-circle">ME</span>' +
+                //    '                            </a>' +
+                //    '                            <div class="flex">' +
+                //    '                                <p class="d-flex align-items-center mb-2">' +
+                //    '                                    <a href=""' +
+                //    '                                       class="text-body mr-2"><strong>You</strong></a>' +
+                //    '                                </p>' +
+                //    '                                <p>' + chat + '</p>' +
+                //    '' +
+                //    '                            </div>' +
+                //    '                        </div>' +
+                //    '                    </div>';
+
+                $('#divchat').append(theresponse);
+                //var myvar = '<div class="card card-body">' +
+                //    '                        <div class="d-flex">' +
+                //    '                            <a href=""' +
+                //    '                               class="avatar avatar-sm avatar-online mr-12pt">' +
+                //    '                                <span class="avatar-title rounded-circle">SY</span>' +
+                //    '                            </a>' +
+                //    '                            <div class="flex">' +
+                //    '                                <p class="d-flex align-items-center mb-2">' +
+                //    '                                    <a href=""' +
+                //    '                                       class="text-body mr-2"><strong>Sunny Yang</strong></a>' +
+                //    '                                </p>' +
+                //    '                                <p>' + data.message + '</p>' +
+                //    '' +
+                //    '                            </div>' +
+                //    '                        </div>' +
+                //    '                    </div>';
+
+
+                //$('#divchat').append(myvar);
+                $("#GUID").val(data.guid);
+
+                $('#comment').val('');
+                $('html, body').animate({
+                    scrollTop: $("#comment").offset().bottom + 10
+                }, 2000);
+            });
+        }
     </script>
 
 }
