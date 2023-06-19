@@ -25,50 +25,6 @@
 </div>
 <div class="container page__container">
     <div class="page-section">
-       @* <div class="row">
-            <div class="col-md-12">
-                <div id="divchat">
-                    <div class="card card-body">
-                        <div class="d-flex">
-                            <a href="#"
-                               class="avatar avatar-sm avatar-online mr-12pt">
-                                <span class="avatar-title rounded-circle">SY</span>
-                            </a>
-                            <div class="flex">
-                                <p class="d-flex align-items-center mb-2">
-                                    <a href=""
-                                       class="text-body mr-2"><strong>Sunny Yang</strong></a>
-                                </p>
-                                <p>Hi, what would you like to talk about?</p>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <input type="hidden" id="GUID" value=""/>
-                <div class="d-flex mb-4">
-                    <a href=""
-                       class="avatar avatar-sm mr-12pt">
-                        <!-- <img src="../../public/images/people/50/guy-6.jpg" alt="people" class="avatar-img rounded-circle"> -->
-                        <span class="avatar-title avatar-title-2 rounded-circle">ME</span>
-                    </a>
-                    <div class="flex">
-                        <div class="form-group">
-                            <label for="comment"
-                                   class="form-label">Your reply</label>
-                            <textarea class="form-control"
-                                      name="comment"
-                                      id="comment"
-                                      rows="3"
-                                      placeholder="What would you like to talk about?"></textarea>
-                        </div>
-                        <button id="btn" class="btn btn-outline-secondary">Send</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>*@
 
 
 
@@ -164,23 +120,7 @@
                                 .append($('<a>').attr('href', '#').addClass('text-body')
                                     .append($('<strong>').text('Me')))))
                         .append($('<span>').addClass('text-70').text(chat))));
-            //var myvar = '<div class="card card-body">' +
-            //    '                        <div class="d-flex">' +
-            //    '                            <a href=""' +
-            //    '                               class="avatar avatar-sm avatar-online mr-12pt">' +
-            //    '                                <span class="avatar-title avatar-title-2 rounded-circle">ME</span>' +
-            //    '                            </a>' +
-            //    '                            <div class="flex">' +
-            //    '                                <p class="d-flex align-items-center mb-2">' +
-            //    '                                    <a href=""' +
-            //    '                                       class="text-body mr-2"><strong>You</strong></a>' +
-            //    '                                </p>' +
-            //    '                                <p>' + chat + '</p>' +
-            //    '' +
-            //    '                            </div>' +
-            //    '                        </div>' +
-            //    '                    </div>';
-
+            
             $('#divchat').append(message);
 
             $.ajax({
@@ -202,43 +142,10 @@
                                     .append($('<a>').attr('href', '#').addClass('text-body')
                                         .append($('<strong>').text('Sunny')))))
                             .append($('<span>').addClass('text-70').text(data.message))));
-                //var myvar = '<div class="card card-body">' +
-                //    '                        <div class="d-flex">' +
-                //    '                            <a href=""' +
-                //    '                               class="avatar avatar-sm avatar-online mr-12pt">' +
-                //    '                                <span class="avatar-title avatar-title-2 rounded-circle">ME</span>' +
-                //    '                            </a>' +
-                //    '                            <div class="flex">' +
-                //    '                                <p class="d-flex align-items-center mb-2">' +
-                //    '                                    <a href=""' +
-                //    '                                       class="text-body mr-2"><strong>You</strong></a>' +
-                //    '                                </p>' +
-                //    '                                <p>' + chat + '</p>' +
-                //    '' +
-                //    '                            </div>' +
-                //    '                        </div>' +
-                //    '                    </div>';
+          
 
                 $('#divchat').append(theresponse);
-                //var myvar = '<div class="card card-body">' +
-                //    '                        <div class="d-flex">' +
-                //    '                            <a href=""' +
-                //    '                               class="avatar avatar-sm avatar-online mr-12pt">' +
-                //    '                                <span class="avatar-title rounded-circle">SY</span>' +
-                //    '                            </a>' +
-                //    '                            <div class="flex">' +
-                //    '                                <p class="d-flex align-items-center mb-2">' +
-                //    '                                    <a href=""' +
-                //    '                                       class="text-body mr-2"><strong>Sunny Yang</strong></a>' +
-                //    '                                </p>' +
-                //    '                                <p>' + data.message + '</p>' +
-                //    '' +
-                //    '                            </div>' +
-                //    '                        </div>' +
-                //    '                    </div>';
-
-
-                //$('#divchat').append(myvar);
+             
                 $("#GUID").val(data.guid);
 
                 $('#comment').val('');
