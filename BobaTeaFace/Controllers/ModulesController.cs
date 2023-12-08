@@ -31,6 +31,11 @@ namespace BobaTeaFace.Controllers
             IEnumerable<Course> courses = _db.Courses.ToList();
             return View(courses);
         }
+        public IActionResult GameMatchMe()
+        {
+            return Redirect("http://gamematchme.com");
+            //return View();
+        }
         public IActionResult Create()
         {
             return View();
